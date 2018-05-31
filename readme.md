@@ -15,6 +15,15 @@ Demonstrate how to implement chain services using w3ajs and w3ajs-ws.
   - get global immutable properties
   - register new account
 
+## Sample Rest API URL
+
+How to access those rest api are linked below.
+
+| API | URL |
+| ------ | ------ |
+| Block Header | [http://localhost:3030/api/block_header/500][PlDb]|
+| Block | [http://localhost:3030/api/block/500][PlGh] |
+
 ## Advanced Examples
 
  - construct asset-transfer transaction
