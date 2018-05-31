@@ -7,6 +7,10 @@ let witness = "ws://47.98.107.96:21012";
 //let witness = "ws://172.17.1.196:8091";
 //let witness = "ws://127.0.0.1:11012";
 
+let privKeyStrShen = "5JWphEoejRfRM1i4Aqep4QhcvNotGfZBwHUjmPt1fSMaLg37FPM";
+let pKeyShen = PrivateKey.fromWif(privKeyStrShen);
+
+
 let privKeyStr = "5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3";
 let pKeyNathan = PrivateKey.fromWif(privKeyStr);
 console.log(pKeyNathan.toPublicKey().toPublicKeyString());
@@ -15,6 +19,11 @@ let fromAccountInfo = {
     accountName: "nathan",
     pKey: pKeyNathan
 };
+let shenAccountInfo = {
+    accountName: "shenbaiwan",
+    pKey: pKeyShen
+};
+
 let issuerAccount = fromAccountInfo;
 Apis.instance(witness, true).init_promise.then((res) => {
     console.log("connected to:", res[0]);
@@ -27,7 +36,7 @@ Apis.instance(witness, true).init_promise.then((res) => {
         console.log(ex);
     });
     */
-    transfer_asset_from_to(fromAccountInfo, "shenbaiwan", "AAA", 747929700396240, 'hello')
+    transfer_asset_from_to(shenAccountInfo, "nathan", "AAA", 200000, 'hello')
     .then((thx) => {
         console.log("transaction of transfer asset was done");
         console.log(JSON.stringify(thx));
@@ -127,6 +136,10 @@ function create_asset(issuer, symbol, options, is_prediction_market) {
         });
     });
 }
+// callback function called after transaction has been sent to chain node
+function callback_thx_broadcast_ok(id) {
+    console.log("transaction - " + id + " has been sent to chain network.");
+}
 function transfer_asset_from_to(sender, toAccountName, assetSymbol, amount, memo) {
     return new Promise(function (resolve, reject) {
         ChainStore.init().then(() => {
@@ -179,10 +192,7 @@ function transfer_asset_from_to(sender, toAccountName, assetSymbol, amount, memo
                 tr.add_signer(sender.pKey);
                 return tr.set_required_fees();
             }).then(() => {
-                // broadcast transactions
-                return tr.broadcast();
-            }).then((thx) => {
-                resolve(thx);
+                return tr.broadcast(callback_thx_broadcast_ok);
             }).catch((ex) => {
                 reject(ex);
             });
