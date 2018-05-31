@@ -17,7 +17,8 @@ Demonstrate how to implement chain services using w3ajs and w3ajs-ws.
 
 ## Sample Rest API URL
 All api could be accessed through http://[ip|domain name]:port + [resource route]
-Api resource route are listed below.
+
+Api resource routes are listed below.
 
 | API | resource route |
 | ------ | ------ |
