@@ -16,13 +16,13 @@ Demonstrate how to implement chain services using w3ajs and w3ajs-ws.
   - register new account
 
 ## Sample Rest API URL
+All api could be accessed through http://[ip|domain name]:port + [resource route]
+Api resource route are listed below.
 
-How to access those rest api are linked below.
-
-| API | URL |
+| API | resource route |
 | ------ | ------ |
-| Block Header | http://localhost:3030/api/block_header/500 |
-| Block | http://localhost:3030/api/block/500 |
+| Block Header | /api/block_header/500 |
+| Block | /api/block/500 |
 
 ## Advanced Examples
 
@@ -36,32 +36,29 @@ How to access those rest api are linked below.
 Requires [Node.js](https://nodejs.org/) v9+ to run.
 
 Install the dependencies and devDependencies and start the server.
-
 ```sh
 $ cd chain-server
 $ npm install
+```
+Build the code and start the server.
+```sh
 $ npm run build
 $ npm run start
 ```
-Then server will run on localhost with default port 3306.
+Then server will run on localhost with default port 3306. 
+
+Rest api could be accessed through http url.
 
 #### Reminder
 
 > NodeJs最近的版本都开始支持ES6（ES2015）的新特性了，设置已经支持了async／await这样的更高级的特性。
-
 > 只是在使用的时候需要在node后面加上参数：--harmony。
-
 > 但是，即使如此node也还是没有支持全部的ES6特性。所以这个时候就需要用到Babel了。
 
 > Babel的plugin和preset
-
 > Babel本身不处理语言特性的转码。这些功能都是由plugin和preset实现的（preset也是一个plugin的集合）。
-
 > 如上文所述，要使用es2015的内容就需要安装babel-preset-es2015这个preset。
-
 > 要使用async/await那么就需要安装对应的preset或者插件。
-
 > 为了简单我们安装preset：babel-preset-stage-0。
-
 > preset stage-0包含了async/await相关的插件: babel-plugin-syntax-async-functions、babel-plugin-transform-regenerator。
 
